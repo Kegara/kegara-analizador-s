@@ -1,0 +1,120 @@
+
+
+$("#btn").click(function () {
+  $.ajax({
+    url: "../servicios/ajaxanalizador.js",
+    method:"GET",
+    data:{action:1},
+    dataType:"JSON",
+    success: function (data) {
+      
+      var mainContainer = document.getElementById("contenedor-ejemplo");
+      mainContainer.innerHTML = "";
+      var comentarios = [
+        "There are two responses I get, without fail, every time I try to get someone new to watch this show. 'I don't like the art style' or 'I've seen the dub - NO THANKS.' I'm guilty of both of these myself. But if there's one thing I need to stress before even getting started on this review, it's that the 4Kids dub is NOT One Piece. For the love of god, PLEASE do not think it is. If you've suffered the misfortune of seeing some of the 4Kids episodes, just erase them from your mind and start fresh. They butchered it, there's really no other way to put it. They cut episodes, changed the dialogue to fit a MUCH younger and apparently far less intelligent audience (almost insultingly so), gave the characters RIDICULOUS voices, and pretty much watered down the entire series. FUNimation has done a much better job so far from what I've seen, but regardless, watching it in its original Japanese form with subtitles is really the way to go.",
+        "One Piece is by far the best shounen anime out there that I have watched. But not all share the same views as I do, lets remedy that, shall we? A long time ago, there live a fearsome pirate king who goes by the name of Gold D. Roger. He was able to attain everything. But alas he was captured and sentenced to execution. In the brink of death, he proclaimed that he left the great treasure, One Piece, somewhere in the Grand Line and it is for anyone to claim. This event ignited the Great Pirate Age.",
+        "Warning: Minor Spoilers  If I were to say anything bad (and I will have to do that as this review is not a positive one) about this anime that would not offend the hardcore fans (and I know there are a lot) is that it's PAINFULLY slow. Even if you leave the fillers aside, still- the plot itself progresses in such a slow pace that it's rather hard to watch. Now for a younger audience it may not matter that much, but to me as a higher age audience, it matters greatly, after all, out of the 23~ minutes of each episode 3 are spent ",
+        "My family and I stayed at Best Western Sandcastle, and we absolutely loved it. The rooms were very clean, with an amazing view of the ocean. We will most certainly be back at this hotel very soon.",
+      ];
+
+        for (var i = 0; i < data.length; i++) {
+          console.log(data);
+          var contenido = document.createElement("div");
+          var titulo = document.createElement("div");
+          var h4 =  document.createElement("h4");
+
+          var ppositivo = document.createElement("p");
+          var pnegativo = document.createElement("p");
+          var pneutral = document.createElement("p");
+          var punclassified = document.createElement("p");
+          var calculation = document.createElement("p");
+          var chart = document.createElement("canvas");
+          chart.setAttribute("id", "idchart");
+        
+          h4.className='my-4 callout callout-info ';
+          h4.innerHTML = "Reseña "+(i+1);
+          mainContainer.appendChild(titulo);
+
+          titulo.appendChild(h4);
+          titulo.innerHTML+="<p><strong>Reseña :</strong> "+comentarios[i]+"</p>";
+          try {
+          ppositivo.innerHTML='Positivos['+data[i].positive.length+']: ' +data[i].positive;
+          } catch (error) {
+            ppositivo.innerHTML='Positivos[0]: ';
+          }
+          try {
+            pnegativo.innerHTML='Negativos['+data[i].negative.length+']: ' +data[i].negative;
+          } catch (error) {
+            pnegativo.innerHTML='Negativos[0]: ';
+          }
+          try {
+            pneutral.innerHTML='Neutrales['+data[i].neutral.length+']: ' +data[i].neutral;
+          } catch (error) {
+            pneutral.innerHTML='Neutrales[0]: ' ;
+          }
+          try {
+            punclassified.innerHTML='Indefinidos['+data[i].unclassified.length+']: ' +data[i].unclassified;
+          } catch (error) {
+            punclassified.innerHTML='Indefinidos[0]: ';
+          }
+          try {
+            
+            calculation.innerHTML+='calculation : ';
+            let string1 = "";
+            let string2 = "";
+
+              data[i].calculation.forEach(item => {
+              const object1 = item;
+
+              for (let property1 in object1) {
+                string1 += " "+property1+" : "+object1[property1];
+              }
+
+              Object.values(object1).forEach(item => {
+                
+                string2 += item
+              });
+                
+              console.log(string1);
+              console.log(string2);
+              calculation.innerHTML='calculation : '
+              +string1;
+            }
+             
+              
+              );
+           
+          } catch (error) {
+            console.log(error);
+            calculation.innerHTML='calculation: error ';
+          }
+          contenido.className = "text-break";
+
+          pneutral.className  = "text-break";
+
+          
+         punclassified.className  = "text-break";
+          
+          pnegativo.className  = "text-break";
+          
+          ppositivo.className  = "text-break";
+
+          contenido.appendChild(ppositivo);
+          contenido.appendChild(pnegativo);
+          contenido.appendChild(pneutral);
+          contenido.appendChild(punclassified);
+          contenido.appendChild(calculation);
+
+          contenido.appendChild(chart);
+
+      
+          
+
+          mainContainer.appendChild(contenido);
+        }
+      //$("#contenedor-ejemplo").text(JSON.parse(result.unclassified));
+    },finally:function(){
+      console.log("result");
+    },
+  });
+});

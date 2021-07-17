@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <!-- header-->
+      <%-  include ('componentes/head.html')  %>
+      <!-- header-->
+    <title>ANALIZADOR DE SENTIMIENTOS</title>
+    <!-- jsMain -->
+  
+    <!-- jsMain -->
+</head>
+
+<body>
+
+
+
+    <main>
+         <!-- header-->
+         <%-  include  ('componentes/header.html') %>
+  
+         <!-- header-->
+        <section class="container my-5" id="busqueda">
+            <div>
+                <h1>Analizador de sentimientos</h1>
+                <p>
+                    Ingrese el comentario en el cuadro de texto y presione el boton para realizar el analisis
+                </p>
+            </div>
+            <form class="container my-5">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input class="btn btn-info" type="submit" value="Evaluar">
+                </div>
+            </form>
+        </section>
+        <section class="container" id="contenedor-ejemplo">
+        </section>
+        <footer>
+        </footer>
+    </main>
+
+    <script type="text/javascript" src="/js/analizador.js"></script>
+</body>
+
+</html>

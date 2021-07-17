@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- header-->
+    <%-  include ('componentes/head.html')  %>
+    <!-- header-->
+    <title>ANALIZADOR DE SENTIMIENTOS</title>
+</head>
+
+<body>
+    <main>
+         <!-- header-->
+         <%- include  ('componentes/header.html') %>
+         <!-- header-->
+        <section class="container my-5" id="busqueda">
+            <div>
+                <h1>Analizador de sentimientos</h1>
+                <p>
+                   Seleccione el boton para ejecutar el comando de los ejemplos
+                   <input class="btn btn-info" type="submit" value="Evaluar" id="btn">
+                </p>
+                
+            </div>
+             
+        </section>
+       
+        <section class="container" id="contenedor-ejemplo">
+
+        </section>
+        <footer>
+            <script type="text/javascript" src="/js/analizador.js"></script>
+        </footer>
+    </main>
+
+</body>
+
+</html>

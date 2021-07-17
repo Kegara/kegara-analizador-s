@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- header-->
+    <%-  include ('componentes/head.html');  %>
+    <!-- header-->
+     <title>ANALIZADOR DE SENTIMIENTOS</title>
+     <style>.callout {
+        padding: 20px;
+        margin: 20px 0;
+        border: 1px solid #eee;
+        border-left-width: 5px;
+        border-radius: 3px;
+      }
+      .callout h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+      }
+      .callout p:last-child {
+        margin-bottom: 0;
+      }
+      .callout code {
+        border-radius: 3px;
+      }
+      .callout + .bs-callout {
+        margin-top: -5px;
+      }
+      
+      .callout-default {
+        border-left-color: #777;
+      }
+      .callout-default h4 {
+        color: #777;
+      }
+      
+      .callout-primary {
+        border-left-color: #428bca;
+      }
+      .callout-primary h4 {
+        color: #428bca;
+      }
+      
+      .callout-success {
+        border-left-color: #5cb85c;
+      }
+      .callout-success h4 {
+        color: #5cb85c;
+      }
+      
+      .callout-danger {
+        border-left-color: #d9534f;
+      }
+      .callout-danger h4 {
+        color: #d9534f;
+      }
+      
+      .callout-warning {
+        border-left-color: #f0ad4e;
+      }
+      .callout-warning h4 {
+        color: #f0ad4e;
+      }
+      
+      .callout-info {
+        border-left-color: #5bc0de;
+      }
+      .callout-info h4 {
+        color: #5bc0de;
+      }
+      
+      .callout-bdc {
+        border-left-color: #29527a;
+      }
+      .callout-bdc h4 {
+        color: #29527a;
+      }</style>
+</head>
+
+<body>
+    <main>
+        <!-- header-->
+        <%- include  ('componentes/header.html') %>
+        <!-- header-->
+        <section class="container my-5"  id="ejemplo">
+            <h1> Pagina principal</h1>
+        </section>
+        <section class="container ">
+
+            <div class="my-4 callout callout-info"> 
+                <h5>Bienvenida</h5>
+               <p>Este analizador de sentimientos se hizo con la tecnologia de node js para la materia de Minería de datos
+              </p>  
+              <p>Se usaron 5 reseñas de prueba recopiladas del sitio web <a href="https://myanimelist.net/">My anime list</a>
+              </p>
+              <p>Documentación de la paqueteria que se utilizo <a href="https://www.npmjs.com/package/sentiment">NPM Sentiment</a>
+              </p> 
+              <p>El codigo fuente se encuentra en mi github <a href="https://github.com/Kegara">https://github.com/Kegara</a>
+              </p> 
+              <p >La documentación de como se realizo se subio a Drive y se puede acceder mediante este link :
+                  <a href="https://drive.google.com/drive/folders/1X85-EMfJ54s3tade1w4avTayAvYeMUOP?usp=sharing">
+                    https://drive.google.com/drive/folders/1X85-EMfJ54s3tade1w4avTayAvYeMUOP?usp=sharing
+                  </a>
+              </p> 
+            </div>
+           
+            
+        </section>
+        <footer>  
+            <!-- jsMain -->
+            <script type="text/javascript" src="/js/analizador.js"></script>
+            <!-- jsMain -->
+        </footer>
+    </main>
+
+</body>
+
+</html>
