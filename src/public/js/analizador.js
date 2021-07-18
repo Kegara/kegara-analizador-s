@@ -134,7 +134,7 @@ $("#btn-analizar").click(function () {
     data:{reseña:txt},
     dataType:"JSON",
     success: function (data) {
-
+        console.log(data);
           //creacion de elementos donde se almacenaran las respuestas
           var mainContainer = document.getElementById("contenedor-analizado");
           var contenedorresena = document.createElement("div");
