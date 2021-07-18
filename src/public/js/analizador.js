@@ -1,5 +1,7 @@
 
 
+var contador;
+inicializar();
 $("#btn").click(function () {
   $.ajax({
     url: "../servicios/ajaxanalizador.js",
@@ -28,6 +30,8 @@ $("#btn").click(function () {
           var pneutral = document.createElement("p");
           var punclassified = document.createElement("p");
           var calculation = document.createElement("p");
+          var score = document.createElement("p");
+
           var chart = document.createElement("canvas");
           chart.setAttribute("id", "idchart");
         
@@ -58,8 +62,13 @@ $("#btn").click(function () {
             punclassified.innerHTML='Indefinidos[0]: ';
           }
           try {
-            
-            calculation.innerHTML+='calculation : ';
+            score.innerHTML='Calificación : ' +data[i].score;
+          } catch (error) {
+           
+            score.innerHTML='Calificación : indefinida';
+          }
+          
+          try {
             let string1 = "";
             let string2 = "";
 
@@ -69,15 +78,10 @@ $("#btn").click(function () {
               for (let property1 in object1) {
                 string1 += " "+property1+" : "+object1[property1];
               }
-
               Object.values(object1).forEach(item => {
-                
                 string2 += item
               });
-                
-              console.log(string1);
-              console.log(string2);
-              calculation.innerHTML='calculation : '
+              calculation.innerHTML='Ponderación : '
               +string1;
             }
              
@@ -86,7 +90,7 @@ $("#btn").click(function () {
            
           } catch (error) {
             console.log(error);
-            calculation.innerHTML='calculation: error ';
+            calculation.innerHTML='Ponderación: error ';
           }
           contenido.className = "text-break";
 
@@ -103,12 +107,10 @@ $("#btn").click(function () {
           contenido.appendChild(pnegativo);
           contenido.appendChild(pneutral);
           contenido.appendChild(punclassified);
+          contenido.appendChild(score);
           contenido.appendChild(calculation);
 
           contenido.appendChild(chart);
-
-      
-          
 
           mainContainer.appendChild(contenido);
         }
@@ -118,3 +120,127 @@ $("#btn").click(function () {
     },
   });
 });
+$("#btn-analizar").click(function () {
+  var txt = document.getElementById("my-textarea").value;
+  var textLength = txt.trim().length;
+  if (textLength==0) {
+}
+  $.ajax({
+    url: "../servicios/ajaxanalizador2.js",
+    method:"GET",
+    data:{reseña:txt},
+    dataType:"JSON",
+    success: function (data) {
+
+          var mainContainer = document.getElementById("contenedor-analizado");
+          var contenedorresena = document.createElement("div");
+          var contenido = document.createElement("div");
+          var titulo = document.createElement("div");
+          var h4 =  document.createElement("h4");
+
+          var ppositivo = document.createElement("p");
+          var pnegativo = document.createElement("p");
+          var pneutral = document.createElement("p");
+          var punclassified = document.createElement("p");
+          var calculation = document.createElement("p");
+          var score = document.createElement("p");
+          
+        
+          h4.className='my-4 callout callout-info ';
+          mainContainer.className=' container d-flex flex-column-reverse bd-highlight mb-3 ';
+        
+          h4.innerHTML = "Reseña "+(contadorcom());
+         try {
+          ppositivo.innerHTML='Positivos['+data.positive.length+']: ' +data.positive;
+          } catch (error) {
+            ppositivo.innerHTML='Positivos[0]: ';
+          }
+          try {
+            pnegativo.innerHTML='Negativos['+data.negative.length+']: ' +data.negative;
+          } catch (error) {
+            pnegativo.innerHTML='Negativos[0]: ';
+          }
+          try {
+            pneutral.innerHTML='Neutrales['+data.neutral.length+']: ' +data.neutral;
+          } catch (error) {
+            pneutral.innerHTML='Neutrales[0]: ' ;
+          }
+          try {
+            punclassified.innerHTML='Indefinidos['+data.unclassified.length+']: ' +data.unclassified;
+          } catch (error) {
+            punclassified.innerHTML='Indefinidos[0]: ';
+          }
+          try {
+            score.innerHTML='Calificación : ' +data.score;
+          } catch (error) {
+           
+            score.innerHTML='Calificación : indefinida';
+          }
+          try {
+            let string1 = "";
+            let string2 = "";
+
+              data.calculation.forEach(item => {
+              const object1 = item;
+
+              for (let property1 in object1) {
+                string1 += " "+property1+" : "+object1[property1];
+              }
+              Object.values(object1).forEach(item => {
+                string2 += item
+              });
+              calculation.innerHTML='Ponderación : '
+              +string1;
+            }
+             
+              
+              );
+           
+          } catch (error) {
+            console.log(error);
+            calculation.innerHTML='Ponderación: error ';
+          }
+          contenido.className = "text-break";
+
+          pneutral.className  = "text-break";
+
+          
+         punclassified.className  = "text-break";
+          
+          pnegativo.className  = "text-break";
+          
+          ppositivo.className  = "text-break";
+
+          contenedorresena.appendChild(titulo);
+          contenido.appendChild(ppositivo);
+          contenido.appendChild(pnegativo);
+          contenido.appendChild(pneutral);
+          contenido.appendChild(punclassified);
+          contenido.appendChild(score);
+          contenido.appendChild(calculation);
+          
+          titulo.appendChild(h4);
+          
+          titulo.innerHTML+="<p><strong>Reseña :</strong> "+txt+"</p>";
+          contenedorresena.appendChild(contenido);
+          mainContainer.appendChild(contenedorresena);
+          sumcontadorcom();
+      //$("#contenedor-ejemplo").text(JSON.parse(result.unclassified));
+    },finally:function(){
+      console.log("result");
+    },
+  });
+});
+function limpiardiv(divLimpiar){
+  var div =document.getElementById(divLimpiar);
+  div.innerHTML = "";
+}
+function sumcontadorcom(){
+  contador++;
+}
+function contadorcom(){
+  return this.contador;
+}
+function inicializar(){
+  contador=1;
+}

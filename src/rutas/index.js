@@ -1,13 +1,12 @@
 //imports
 const express = require('express');
 const router = express.Router();
+//middleware
 //routes
 router.get('/',(req,res)=>{
     res.render('index.html',{title:'Ejemplo analizador'});
 });
-router.get('/Analizador',(req,res)=>{
-    res.render('Analizador.html',{title:'Herramienta analizadora '});
-});
+
 router.get('/Ejemplos',(req,res)=>{
     res.render('Ejemplos.html',{title:'Ejemplos'});
 });
@@ -21,16 +20,30 @@ router.get('/servicios/ajaxanalizador.js',(req,res)=>{
   ];
     var sentiment = new Sentiment();
     let  ejemplores=[];
-
     var i=1;
     comentarios.forEach((element) => {
-
         let comentarioAnalizado=sentiment.analyze(element);
         ejemplores.push(comentarioAnalizado);
-
     });
-   
     res.json(ejemplores);
+});
+
+router.get('/servicios/ajaxanalizador2.js',(req,res)=>{
+    if(req.query.reseña!=undefined){
+        var Sentiment = require("sentiment");
+        var sentiment = new Sentiment();
+        let comentarioAnalizado=sentiment.analyze(req.query.reseña);
+        res.json(comentarioAnalizado);
+
+    }else{
+        res.json("error");
+    }
+
+});
+
+router.get('/Analizador',(req,res,next)=>{
+    console.log(req.body);
+    res.render('Analizador.html',{title:'Herramienta analizadora '});
 });
 //exports
 
