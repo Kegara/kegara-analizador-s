@@ -9,9 +9,11 @@ $("#btn").click(function () {
     data:{action:1},
     dataType:"JSON",
     success: function (data) {
-      
+      //obtenemos el conenedor donde se almacenan las reseñas
       var mainContainer = document.getElementById("contenedor-ejemplo");
       mainContainer.innerHTML = "";
+      
+      //reseñas 
       var comentarios = [
         "There are two responses I get, without fail, every time I try to get someone new to watch this show. 'I don't like the art style' or 'I've seen the dub - NO THANKS.' I'm guilty of both of these myself. But if there's one thing I need to stress before even getting started on this review, it's that the 4Kids dub is NOT One Piece. For the love of god, PLEASE do not think it is. If you've suffered the misfortune of seeing some of the 4Kids episodes, just erase them from your mind and start fresh. They butchered it, there's really no other way to put it. They cut episodes, changed the dialogue to fit a MUCH younger and apparently far less intelligent audience (almost insultingly so), gave the characters RIDICULOUS voices, and pretty much watered down the entire series. FUNimation has done a much better job so far from what I've seen, but regardless, watching it in its original Japanese form with subtitles is really the way to go.",
         "One Piece is by far the best shounen anime out there that I have watched. But not all share the same views as I do, lets remedy that, shall we? A long time ago, there live a fearsome pirate king who goes by the name of Gold D. Roger. He was able to attain everything. But alas he was captured and sentenced to execution. In the brink of death, he proclaimed that he left the great treasure, One Piece, somewhere in the Grand Line and it is for anyone to claim. This event ignited the Great Pirate Age.",
@@ -19,28 +21,30 @@ $("#btn").click(function () {
         "My family and I stayed at Best Western Sandcastle, and we absolutely loved it. The rooms were very clean, with an amazing view of the ocean. We will most certainly be back at this hotel very soon.",
       ];
 
+      //iteracion de json obtenido a partir de la peticion
         for (var i = 0; i < data.length; i++) {
           console.log(data);
+          //creacion de elementos donde se almacenaran las respuestas
           var contenido = document.createElement("div");
           var titulo = document.createElement("div");
           var h4 =  document.createElement("h4");
-
           var ppositivo = document.createElement("p");
           var pnegativo = document.createElement("p");
           var pneutral = document.createElement("p");
           var punclassified = document.createElement("p");
           var calculation = document.createElement("p");
           var score = document.createElement("p");
-
           var chart = document.createElement("canvas");
           chart.setAttribute("id", "idchart");
-        
+          //llenado de titulo
           h4.className='my-4 callout callout-info ';
           h4.innerHTML = "Reseña "+(i+1);
+          //agregamos el titulo al contenedor main
           mainContainer.appendChild(titulo);
-
+          //agregamos el texto del titulo 
           titulo.appendChild(h4);
           titulo.innerHTML+="<p><strong>Reseña :</strong> "+comentarios[i]+"</p>";
+          //empezamos a rellenar los elementos con la data recibida del json
           try {
           ppositivo.innerHTML='Positivos['+data[i].positive.length+']: ' +data[i].positive;
           } catch (error) {
@@ -92,29 +96,28 @@ $("#btn").click(function () {
             console.log(error);
             calculation.innerHTML='Ponderación: error ';
           }
+          
+          //agregamos la clase text-break para que los textos sean responsivos
           contenido.className = "text-break";
 
           pneutral.className  = "text-break";
-
-          
          punclassified.className  = "text-break";
           
           pnegativo.className  = "text-break";
           
           ppositivo.className  = "text-break";
 
+          //agregamos las respuestas al contenedo del contenido
           contenido.appendChild(ppositivo);
           contenido.appendChild(pnegativo);
           contenido.appendChild(pneutral);
           contenido.appendChild(punclassified);
           contenido.appendChild(score);
           contenido.appendChild(calculation);
-
           contenido.appendChild(chart);
-
+          //agregamos el contenedo del contenido al contenedor main
           mainContainer.appendChild(contenido);
         }
-      //$("#contenedor-ejemplo").text(JSON.parse(result.unclassified));
     },finally:function(){
       console.log("result");
     },
@@ -132,24 +135,24 @@ $("#btn-analizar").click(function () {
     dataType:"JSON",
     success: function (data) {
 
+          //creacion de elementos donde se almacenaran las respuestas
           var mainContainer = document.getElementById("contenedor-analizado");
           var contenedorresena = document.createElement("div");
           var contenido = document.createElement("div");
           var titulo = document.createElement("div");
           var h4 =  document.createElement("h4");
-
           var ppositivo = document.createElement("p");
           var pnegativo = document.createElement("p");
           var pneutral = document.createElement("p");
           var punclassified = document.createElement("p");
           var calculation = document.createElement("p");
           var score = document.createElement("p");
-          
-        
+          //agregado de clases 
           h4.className='my-4 callout callout-info ';
           mainContainer.className=' container d-flex flex-column-reverse bd-highlight mb-3 ';
-        
+          //agregamos el texto del titulo 
           h4.innerHTML = "Reseña "+(contadorcom());
+          //empezamos a rellenar los elementos con la data recibida del json
          try {
           ppositivo.innerHTML='Positivos['+data.positive.length+']: ' +data.positive;
           } catch (error) {
@@ -200,17 +203,13 @@ $("#btn-analizar").click(function () {
             console.log(error);
             calculation.innerHTML='Ponderación: error ';
           }
+          //agregamos la clase text-break para que los textos sean responsivos
           contenido.className = "text-break";
-
           pneutral.className  = "text-break";
-
-          
-         punclassified.className  = "text-break";
-          
+          punclassified.className  = "text-break";
           pnegativo.className  = "text-break";
-          
           ppositivo.className  = "text-break";
-
+          //agregamos las respuestas al contenedo del contenido
           contenedorresena.appendChild(titulo);
           contenido.appendChild(ppositivo);
           contenido.appendChild(pnegativo);
@@ -218,9 +217,8 @@ $("#btn-analizar").click(function () {
           contenido.appendChild(punclassified);
           contenido.appendChild(score);
           contenido.appendChild(calculation);
-          
+          //agregamos el titulo al contenedor main
           titulo.appendChild(h4);
-          
           titulo.innerHTML+="<p><strong>Reseña :</strong> "+txt+"</p>";
           contenedorresena.appendChild(contenido);
           mainContainer.appendChild(contenedorresena);
@@ -231,16 +229,20 @@ $("#btn-analizar").click(function () {
     },
   });
 });
+//funcion para limpiar el div de 
 function limpiardiv(divLimpiar){
   var div =document.getElementById(divLimpiar);
   div.innerHTML = "";
 }
+//funcion para contador de reseñas analizadas
 function sumcontadorcom(){
   contador++;
 }
+//funcion para contador de reseñas analizadas
 function contadorcom(){
   return this.contador;
 }
+//funcion para contador de reseñas analizadas
 function inicializar(){
   contador=1;
 }
